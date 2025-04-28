@@ -39,27 +39,60 @@ export const TodoList = () => {
     }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-zinc-700 p-5 m-5 rounded-xl w-[85%]">
+    <div className="flex flex-col items-center justify-center bg-zinc-700 p-5 m-15 rounded-xl  sm:w-[80%] md:w-[60%] lg:w-[40%]">
+    <div className="w-full flex flex-col justify-center items-center ">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">Teendők</h1>  
+  
+      <div className="flex flex-col sm:flex-row items-center w-full">
+      <input 
+        type="text"
+        className="flex-1 bg-zinc-500 w-[80%] border-2 border-yellow-700 text-white rounded-sm p-2 m-2 
+                    overflow-x-auto whitespace-nowrap"
+        placeholder="Írj be egy feladatot"
+        value={newTask}
+        onChange={handleInput}
+        />
 
-        <h1>To do list</h1>
-        <div>
-            <input type="text" className='bg-zinc-500 border-2 border-yellow-700 text-white rounded-sm p-2 m-2' placeholder='enter a task' value={newTask} onChange={handleInput}/>
-            <button  class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-5 border border-gray-400 rounded shadow" onClick={()=>addTask()}>
-                Add
+        <button 
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-5 border border-gray-400 rounded shadow text-sm sm:text-base m-2"
+          onClick={() => addTask()}
+        >
+          Hozzáadás
+        </button>
+      </div>
+  
+      <ol className="w-full mt-4">
+        {tasks.map((task, index) => (
+          <li key={index} className="flex flex-wrap lg:gap-5 md:gap-2 sm:gap-2 w-full p-2 items-center">
+            <span className="flex-1 bg-blue-400 flex justify-center items-center text-gray-100 text-sm sm:text-base font-medium break-words p-2 m-1 rounded">
+              {task}
+            </span>
+  
+            <button  
+              className="flex-1 min-w-[120px] m-1 bg-rose-500 hover:bg-zinc-800 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded text-xs sm:text-sm"
+              onClick={() => deleteTask(index)}
+            >
+              Törlés
             </button>
-            
-        </div>
-        <ol>
-            {tasks.map((task,index)=>
-            <li key={index} className='flex w-full justify-between gap-5 w-full p-2 w-[55%]'>
-               <span className="max-w-[150px] flex-1 text-gray-100 text-base font-medium truncate">{task}</span>
-
-                <button  class="bg-rose-500 hover:bg-zinc-800 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => deleteTask(index)}>delete</button>
-                <button  class="bg-emerald-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => moveTaskUp(index)}>move up</button>
-                <button  class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => moveTaskDown(index)}>move down</button>
-            </li>
-            )}
-        </ol>
+  
+            <button  
+              className="flex-1 min-w-[120px] m-1 bg-emerald-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded text-xs sm:text-sm"
+              onClick={() => moveTaskUp(index)}
+            >
+              Feljebb
+            </button>
+  
+            <button  
+              className="flex-1 min-w-[120px] m-1 bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded text-xs sm:text-sm"
+              onClick={() => moveTaskDown(index)}
+            >
+              Lejjebb
+            </button>
+          </li>
+        ))}
+      </ol>
     </div>
+  </div>
+  
   )
 }
